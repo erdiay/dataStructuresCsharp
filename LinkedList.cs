@@ -1,115 +1,247 @@
+using System;
 using System.Collections.Generic;
 
-public class LinkedList
+public class LinkedList<T>
 {
-    private class LinkNode
+    internal class LinkNode<T>
     {
-        private object _value;
+        private T value;
 
-        private LinkNode _next;
+        internal LinkNode<T> next;
+        internal LinkNode<T> prev;
 
-        public LinkNode Next
+        public LinkNode<T> Next
         {
-            get { return this._next; }
-            set
-            {
-                this._next = value;
+            get { return this.next;; }
+        }
+
+        public LinkNode<T> Previous
+        {
+            get { return this.prev; }
+        }
+
+        public T Value
+        {
+            get { return this.value; }
+            set { this.value = value;}
+        }
+
+        public LinkNode(T value) {
+            this.value = value;
+        }
+
+        public LinkNode(T value, LinkNode<T> next, LinkNode<T> prev) {
+            this.value = value;
+            this.next = next;
+            this.prev = prev;
+        }
+    }
+
+    internal List<LinkNode<T>> items;
+    internal LinkNode<T> head;
+    internal LinkNode<T> tail;
+    internal int count;
+
+    public int Count
+    {
+        get { return this.count; }
+    }
+
+    public LinkedList() {
+        items = new List<LinkNode<T>>();
+    }
+
+    public LinkedList(T value) {
+        items = new List<LinkNode<T>>();
+
+        var node = new LinkNode<T>(value);
+        InternalInsertNodeToEmptyList(node);
+    }
+
+    private void InternalInsertNodeToEmptyList(LinkNode<T> newNode) {
+        newNode.next = newNode;
+        newNode.prev = newNode;
+        head = newNode;
+        tail = newNode;
+        items.Add(newNode);
+        count++;
+    }
+
+    private void InternalInsertNodeAfter(LinkNode<T> node, LinkNode<T> newNode) {
+        newNode.next = node.next;
+        newNode.prev = node;
+
+        node.next.prev = newNode;
+        node.next = newNode;
+
+        if (node == tail) {
+            tail = newNode;
+        }
+
+        items.Add(newNode);
+        count++;
+    }
+
+    private void InternalInsertNodeBefore(LinkNode<T> node, LinkNode<T> newNode) {
+        newNode.next = node;
+        newNode.prev = node.prev;
+
+        node.prev.next = newNode;
+        node.prev = newNode;
+
+        if (node == head) {
+            head = newNode;
+        }
+
+        items.Add(newNode);
+        count++;
+    }
+
+    private void InternalRemoveNode(LinkNode<T> node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+
+        if (node == head) {
+            head = node.next;
+        }
+        else if (node == tail) {
+            tail = node.prev;
+        }
+
+        items.Remove(node);
+        count--;
+    }
+
+    internal void ValidateNewNode(LinkNode<T> node) {
+        if (node == null) {
+            throw new ArgumentNullException("node"); 
+        }
+    }
+
+    public void Append(T value)
+    {
+        if (items.Equals(null)) {
+            throw new ArgumentNullException("items"); 
+        }
+
+        var newNode = new LinkNode<T>(value);
+        if (head == null) {
+            InternalInsertNodeToEmptyList(newNode);
+        }
+        else {
+            InternalInsertNodeAfter(tail, newNode);
+        }
+    }
+
+    public void Prepend(T value)
+    {
+        if (items.Equals(null)) {
+            throw new ArgumentNullException("items"); 
+        }
+
+        var newNode = new LinkNode<T>(value);
+        if (head == null) {
+            InternalInsertNodeToEmptyList(newNode);
+        }
+        else {
+            InternalInsertNodeBefore(head, newNode);
+        }
+    }
+
+    internal LinkNode<T> Find(T value) {
+        LinkNode<T> node = head;
+        EqualityComparer<T> c = EqualityComparer<T>.Default;  
+        if (node != null) {
+            if (value != null) {
+                do
+                {
+                    if (c.Equals(value, node.Value)) {
+                        return node;
+                    }
+                    node = node.next;
+                } while (node != head);
+            }
+            else {
+                do
+                {
+                    if (node.Value == null) {
+                        return node;
+                    }
+                    node = node.next;
+                } while (node != head);
             }
         }
+        return null;
+    }
 
-        public object Value
-        {
-            get { return this._value; }
+    public void Remove(T value)
+    {
+        if (items.Equals(null)) {
+            throw new ArgumentNullException("items"); 
         }
 
-        public LinkNode(object value, LinkNode next)
-        {
-            this._value = value;
-            this._next = next;
-        }
-    }
-
-    private List<LinkNode> _items;
-    private LinkNode _header;
-    private LinkNode _tail;
-    private int _length;
-
-    public int Length
-    {
-        get { return this._length; }
-    }
-
-    public LinkedList(object item)
-    {
-        _items = new List<LinkNode>
-        {
-          new LinkNode(item, null)
-        };
-        this._header = _items[0];
-        this._tail = _items[0];
-        _length++;
-    }
-
-    public void Append(object value)
-    {
-        if (value == null) return;
-        if (_items.Equals(null)) return; //throw exception
-
-        var newNode = new LinkNode(value, null);
-        _items.Add(newNode);
-        this._tail.Next = newNode;
-        this._tail = newNode;
-        _length++;
-    }
-
-    public void Prepend(object value)
-    {
-        if (value == null) return;
-        if (_items.Equals(null)) return; //throw exception
-
-        var newNode = new LinkNode(value, null);
-        newNode.Next = this._header;
-        this._header = newNode;
-        _items.Add(newNode);
-        _length++;
-    }
-
-    public void Remove(object value)
-    {
-        if (value == null) return;
-        if (_items.Equals(null)) return; //throw exception
-
-        if (this._header.Value.Equals(value))
-        {
-            var tempNode = this._header.Next;
-            _items.Remove(this._header);
-            this._header = tempNode;
-            
-            return;
-        }
-
-        var currentNode = this._header;
-        while (currentNode.Next != null) {
-            if (currentNode.Next.Value.Equals(value))
-            {
-                var tempNode = currentNode.Next.Next;
-                _items.Remove(currentNode.Next);
-                currentNode.Next = tempNode;
-                _length--;
-
-                return;
-            }
+        var node = Find(value);
+        if (node != null) {
+            InternalRemoveNode(node);
         }
     }
 
-    public List<object> GetItems()
+    public void InsertAfter(T value, T valueToBeInserted)
     {
-        var items = new List<object>();
-        var currentNode = this._header;
-        while (currentNode != null) {
+        if (items.Equals(null)) {
+            throw new ArgumentNullException("items"); 
+        }
+
+        var node = Find(value);
+        var newNode = new LinkNode<T>(valueToBeInserted);
+        if (node != null) {
+            InternalInsertNodeAfter(node, newNode);
+        }
+    }
+
+    public bool Search(T value)
+    {
+        if (items.Equals(null)) {
+            throw new ArgumentNullException("items"); 
+        }
+
+        var node = Find(value);
+        if (node != null) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public void ReverseOrder()
+    {
+        if (items.Equals(null)) {
+            throw new ArgumentNullException("items"); 
+        }
+
+        var node = this.head;
+        do
+        {
+            var tempNode = node.prev;
+
+            node.prev = node.next;
+            node.next = tempNode;
+            node = node.prev;
+        } while (node != head);
+        var tempTail = tail;
+        tail = head;
+        head = tempTail;
+    }
+
+    public List<T> GetItems()
+    {
+        var items = new List<T>();
+        var currentNode = this.head;
+        do
+        {
             items.Add(currentNode.Value);
-            currentNode = (LinkNode)currentNode.Next;
-        }
+            currentNode = currentNode.Next;
+        } while (currentNode != head);
 
         return items;
     }
