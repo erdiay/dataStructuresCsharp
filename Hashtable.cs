@@ -132,7 +132,7 @@ public class Hashtable<K, V>
         }
 
         //returns 0 for integers and may cause an error. 
-        //maybe generic type is not the best solution for hash tables
+        //maybe object type is more suitable for hashtables, not the generics.
         return default; 
     }
 
