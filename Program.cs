@@ -6,7 +6,20 @@ namespace dataStructuresCsharp
     {
         static void Main(string[] args)
         {
-            LinkedListTest();
+            //LinkedListTest();
+            HashtableTest();            
+        }
+
+        internal static void HashtableTest() {
+            var myHashtable = new Hashtable<string, int>();
+            myHashtable.Add("item1", 3);
+            myHashtable.Add("item2", 1);
+            myHashtable.Add("item3", 4);
+            myHashtable.Add("item4", 5);
+            myHashtable.Add("item5", 6);
+            myHashtable.Remove("item3");
+            Console.WriteLine(myHashtable.Get("item4"));
+            Console.WriteLine(myHashtable.Get("item3"));
         }
 
         internal static void LinkedListTest() {
