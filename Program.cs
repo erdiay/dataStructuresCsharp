@@ -11,7 +11,8 @@ namespace dataStructuresCsharp
             StackTest();
         }
 
-        internal static void StackTest() {
+        internal static void StackTest()
+        {
             var myStack = new Stack(4);
             myStack.Push(1);
             myStack.Push(5);
@@ -28,7 +29,8 @@ namespace dataStructuresCsharp
             }
         }
 
-        internal static void HashtableTest() {
+        internal static void HashtableTest()
+        {
             var myHashtable = new Hashtable<string, int>();
             myHashtable.Add("item1", 3);
             myHashtable.Add("item2", 1);
@@ -46,10 +48,11 @@ namespace dataStructuresCsharp
             }
         }
 
-        internal static void LinkedListTest() {
+        internal static void LinkedListTest()
+        {
             var myLinkedList = new LinkedList<int>(5);
             myLinkedList.ReverseOrder();
-            
+
             myLinkedList.Append(1);
             myLinkedList.Prepend(0);
             myLinkedList.Append(4);
@@ -68,7 +71,7 @@ namespace dataStructuresCsharp
             {
                 Console.Write(item.ToString() + " ");
             }
-            
+
             Console.WriteLine();
             myLinkedList.ReverseOrder();
             items = myLinkedList.GetItems();
