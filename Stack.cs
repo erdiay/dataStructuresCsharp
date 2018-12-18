@@ -46,7 +46,7 @@ public class Stack
             throw new Exception("no items to pop");
         }
 
-        Object item = _items[_size--];
+        Object item = _items[--_size];
         _items[_size] = null;
 
         return item;
