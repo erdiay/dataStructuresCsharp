@@ -7,7 +7,25 @@ namespace dataStructuresCsharp
         static void Main(string[] args)
         {
             //LinkedListTest();
-            HashtableTest();            
+            //HashtableTest();            
+            StackTest();
+        }
+
+        internal static void StackTest() {
+            var myStack = new Stack(4);
+            myStack.Push(1);
+            myStack.Push(5);
+            foreach (var item in myStack.GetItems())
+            {
+                Console.Write(item.ToString() + " ");
+            }
+            Console.WriteLine();
+
+            myStack.Pop();
+            foreach (var item in myStack.GetItems())
+            {
+                Console.Write(item.ToString() + " ");
+            }
         }
 
         internal static void HashtableTest() {
@@ -20,6 +38,12 @@ namespace dataStructuresCsharp
             myHashtable.Remove("item3");
             Console.WriteLine(myHashtable.Get("item4"));
             Console.WriteLine(myHashtable.Get("item3"));
+
+            var keys = myHashtable.GetKeys();
+            foreach (var item in keys)
+            {
+                Console.Write(item.ToString() + " ");
+            }
         }
 
         internal static void LinkedListTest() {

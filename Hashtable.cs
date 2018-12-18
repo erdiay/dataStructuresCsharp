@@ -83,7 +83,8 @@ public class Hashtable<K, V>
         }
     }
 
-    public void Remove(K key) {
+    public void Remove(K key)
+    {
         if (key == null)
         {
             throw new Exception("key to be removed cannot be null");
@@ -94,29 +95,34 @@ public class Hashtable<K, V>
         HashNode<K, V> prev = null;
         while (head != null)
         {
-            if (head.key.Equals(key)) {
+            if (head.key.Equals(key))
+            {
                 break;
             }
 
             prev = head;
             head = head.next;
         }
-        
-        if (head == null) {
+
+        if (head == null)
+        {
             return;
         }
 
-        if (prev != null) {
+        if (prev != null)
+        {
             prev.next = head.next;
         }
-        else {
-            bucketList[bucketIndex] =  head.next;
+        else
+        {
+            bucketList[bucketIndex] = head.next;
         }
         bucketList.Remove(head);
         size--;
     }
 
-    public V Get(K key) {
+    public V Get(K key)
+    {
         if (key == null)
         {
             throw new Exception("key to be removed cannot be null");
@@ -124,8 +130,10 @@ public class Hashtable<K, V>
 
         var bucketIndex = getBucketIndex(key);
         var head = bucketList[bucketIndex];
-        while (head != null) {
-            if (head.key.Equals(key)) {
+        while (head != null)
+        {
+            if (head.key.Equals(key))
+            {
                 return head.value;
             }
             head = head.next;
@@ -133,7 +141,23 @@ public class Hashtable<K, V>
 
         //returns 0 for integers and may cause an error. 
         //maybe object type is more suitable for hashtables, not the generics.
-        return default; 
+        return default;
+    }
+
+    public List<K> GetKeys()
+    {
+        List<K> keys = new List<K>();
+        for (int i = 0; i < bucketList.Count; i++)
+        {
+            var head = bucketList[i];
+            while (head != null)
+            {
+                keys.Add(head.key);
+                head = head.next;
+            }
+        }
+
+        return keys;
     }
 
 }
