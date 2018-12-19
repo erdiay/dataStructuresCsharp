@@ -20,7 +20,6 @@ public class QueueLinkedList
     }
 
     private int _size;
-    private const int _defaultCapacity = 3;
     private Node _head;
     private Node _tail;
     private List<Node> _items;
@@ -46,7 +45,7 @@ public class QueueLinkedList
             _tail.next = newNode;
             _tail = newNode;
         }
-        
+
         _items.Add(newNode);
         _size++;
     }
@@ -59,13 +58,14 @@ public class QueueLinkedList
         }
 
         var tempNode = _head;
-        if (_head == _tail) {
+        if (_head == _tail)
+        {
             _head = null;
             _tail = null;
         }
         else
         {
-            _head = tempNode.next;   
+            _head = tempNode.next;
         }
         _items.Remove(tempNode);
         _size--;

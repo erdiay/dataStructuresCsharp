@@ -65,10 +65,12 @@ public class Queue
         var tempArray = new Object[_size];
         if (_size == 0) return tempArray.ToList();
 
-        if (_tail > _head) {
+        if (_tail > _head)
+        {
             Array.Copy(_items, _head, tempArray, 0, _size);
         }
-        else {
+        else
+        {
             Array.Copy(_items, _head, tempArray, 0, _items.Length - _head);
             Array.Copy(_items, 0, tempArray, _items.Length - _head, _tail);
         }

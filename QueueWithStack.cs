@@ -13,17 +13,19 @@ public class QueueWithStack
         _swapedItems = new Stack();
     }
 
-    public int Count { get {return _items.Count + _swapedItems.Count;} }
+    public int Count { get { return _items.Count + _swapedItems.Count; } }
 
     public void Enqueue(Object value)
     {
-        if (_items.Count == 0) {
+        if (_items.Count == 0)
+        {
             _head = value;
         }
         _items.Push(value);
     }
 
-    public Object Dequeue() {
+    public Object Dequeue()
+    {
         if (_swapedItems.Count == 0)
         {
             while (_items.Count > 0)

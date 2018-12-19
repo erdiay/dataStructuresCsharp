@@ -16,16 +16,17 @@ public class Stack
     {
         _items = new Object[_defaultCapacity];
         _size = 0;
-        
+
         InternalInserToEmptyList(value);
     }
 
-    internal void InternalInserToEmptyList(Object value) {
+    internal void InternalInserToEmptyList(Object value)
+    {
         _items[0] = value;
         _size++;
     }
 
-    public int Count { get {return _size;} }
+    public int Count { get { return _size; } }
 
     public void Push(Object value)
     {
@@ -52,7 +53,8 @@ public class Stack
         return item;
     }
 
-    public Object Peek() {
+    public Object Peek()
+    {
         if (_size == 0)
         {
             throw new Exception("no items to peek");

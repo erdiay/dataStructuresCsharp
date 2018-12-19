@@ -27,7 +27,7 @@ namespace dataStructuresCsharp
             myQueue.Enqueue(6);
             Console.WriteLine(myQueue.Peek());
             Console.WriteLine(myQueue.Dequeue());
-            
+
         }
 
         internal static void QueueLinkedListTest()
@@ -60,7 +60,7 @@ namespace dataStructuresCsharp
             {
                 Console.Write(item.ToString() + " ");
             }
-            
+
             //Console.WriteLine();
             //Console.WriteLine(myStack.Peek());
         }
@@ -86,7 +86,7 @@ namespace dataStructuresCsharp
             {
                 Console.Write(item.ToString() + " ");
             }
-            
+
             //Console.WriteLine();
             //Console.WriteLine(myStack.Peek());
         }

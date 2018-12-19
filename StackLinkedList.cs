@@ -32,7 +32,7 @@ public class StackLinkedList
         _size = 0;
     }
 
-    public int Count { get { return this._size;} }
+    public int Count { get { return this._size; } }
 
     public void Push(Object value)
     {
