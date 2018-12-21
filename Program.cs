@@ -12,7 +12,47 @@ namespace dataStructuresCsharp
             //StackWithNodeTest();
             //QueueTest();
             //QueueLinkedListTest();
-            QueueWithStackTest();
+            //QueueWithStackTest();
+            //BinarySearchTreeTest();
+            AVLTreeTest();
+        }
+
+        internal static void AVLTreeTest()
+        {
+            var myAVLTree = new AVLTree();
+            myAVLTree.Insert(30);
+            myAVLTree.Insert(35);
+            myAVLTree.Insert(5);
+            myAVLTree.Insert(32);
+            myAVLTree.Insert(40);
+            myAVLTree.Insert(45);
+        }
+        internal static void BinarySearchTreeTest()
+        {
+            var myBST = new BinarySearchTree();
+            // myBST.Insert(9);
+            // myBST.Insert(4);
+            // myBST.Insert(6);
+            // myBST.Insert(20);
+            // myBST.Insert(170);
+            // myBST.Insert(15);
+            // myBST.Insert(1);
+            // myBST.Remove(20);
+
+            myBST.Insert(41);
+            myBST.Insert(20);
+            myBST.Insert(11);
+            myBST.Insert(29);
+            myBST.Insert(32);
+            myBST.Insert(65);
+            myBST.Insert(50);
+            myBST.Insert(91);
+            myBST.Insert(72);
+            myBST.Insert(99);
+            myBST.Remove(41);
+
+
+            Console.WriteLine(myBST.Lookup(170));
         }
 
         internal static void QueueWithStackTest()
